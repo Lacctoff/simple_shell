@@ -1,3 +1,4 @@
+#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -6,10 +7,12 @@
 #include <string.h>
 
 int main(int ac, char **av);
+
 /**
  * main - handles basic command execution
  * and provides a simple interactive shell interface.
- *
+ * @ac: arguments count.
+ * @av: arguement vector.
  * Return: 0 on success
  */
 
@@ -28,12 +31,29 @@ int main(int ac, char **av)
 	{
 		command_name = *av;
 		av++;
+		ac++;
 	}
+	command_name = str_concat(command_name, ": ");
 
 	while (1)
 	{
 		write(1, "#cisfun$ ", 9);
-		getline(&buff, &buff_size, stdin);
+		/*getline(&buff, &buff_size, stdin);*/
+		if (getline(&buff, &buff_size, stdin) == -1)
+		{
+			break;
+		}
+
+		while (is_whitespace(buff[i]))
+		{
+			i++;
+		}
+
+		if (buff[i] == '\0' || buff[i] == '\n')
+		{
+			continue;
+		}
+
 		token = strtok(buff, "\t\n");
 		array = malloc(sizeof(char *) * 1024);
 
@@ -50,10 +70,10 @@ int main(int ac, char **av)
 		{
 			if (execve(array[0], array, NULL) == -1)
 			{
-				/*fprintf(stderr, "%s: ", command_name);*/
-				write(STDERR_FILENO, (size_t) "%s: ", command_name);
+				write(STDERR_FILENO, command_name, _strlen(command_name));
 				perror("");
 			}
+			exit(EXIT_FAILURE);
 		}
 		else if (child_pid > 0)
 		{
@@ -61,7 +81,8 @@ int main(int ac, char **av)
 		}
 		else
 		{
-			perror("Error: error with the exec");
+			write(STDERR_FILENO, command_name, _strlen(command_name));
+			perror("");
 		}
 
 		i = 0;

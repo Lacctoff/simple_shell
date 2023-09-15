@@ -9,5 +9,6 @@
  */
 int is_whitespace(char ch)
 {
-        return (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r' || ch == '\v' || ch == '\f');
+	return (ch == ' ' || ch == '\t' || ch == '\n' || ch ==
+			'\r' || ch == '\v' || ch == '\f');
 }

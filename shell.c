@@ -20,12 +20,11 @@ int main(int ac, char **av)
 {
 	size_t buff_size = 0;
 	char *buff = NULL;
-	char *token;
 	int i = 0;
-	char **array;
-	int status;
-	pid_t child_pid;
 	char *command_name;
+	char *command;
+	char **args;
+	char *command_path;
 
 	while (*av != NULL)
 	{
@@ -38,7 +37,6 @@ int main(int ac, char **av)
 	while (1)
 	{
 		write(1, "#cisfun$ ", 9);
-		/*getline(&buff, &buff_size, stdin);*/
 		if (getline(&buff, &buff_size, stdin) == -1)
 		{
 			break;
@@ -54,39 +52,58 @@ int main(int ac, char **av)
 			continue;
 		}
 
-		token = strtok(buff, "\t\n");
-		array = malloc(sizeof(char *) * 1024);
-
-		while (token)
+		/* Remove the newline character at the end*/
+		if (buff[_strlen(buff) - 1] == '\n')
 		{
-			array[i] = token;
-			token = strtok(NULL, "\t\n");
+			buff[_strlen(buff) - 1] = '\0';
+		}
+
+		/* Tokenize the input line into a command and its arguments */
+		command = strtok(buff, " \t\n");
+		args = malloc(sizeof(char *) * 1024);
+
+		i = 0;
+		while (command)
+		{
+			args[i] = command;
+			command = strtok(NULL, " \t\n");
 			i++;
 		}
-		array[i] = NULL;
-		child_pid = fork();
+		args[i] = NULL;
 
-		if (child_pid == 0)
+		/* Check if the command contains a '/' character */
+		if (strchr(args[0], '/') != NULL)
 		{
-			if (execve(array[0], array, NULL) == -1)
+			/* This is an absolute path, execute it directly */
+			if (access(args[0], X_OK) == 0 && execute_command(args[0], args) == -1)
 			{
 				write(STDERR_FILENO, command_name, _strlen(command_name));
 				perror("");
 			}
-			exit(EXIT_FAILURE);
-		}
-		else if (child_pid > 0)
-		{
-			wait(&status);
 		}
 		else
 		{
-			write(STDERR_FILENO, command_name, _strlen(command_name));
-			perror("");
+			/* Search for the command in PATH */
+			command_path = search_command_in_path(args[0]);
+
+			if (command_path)
+			{
+				if (execute_command(command_path, args) == -1)
+				{
+					write(STDERR_FILENO, command_name, _strlen(command_name));
+					perror("");
+				}
+				free(command_path);
+			}
+			else
+			{
+				write(STDERR_FILENO, command_name, _strlen(command_name));
+				perror("Command not found");
+			}
 		}
 
 		i = 0;
-		free(array);
+		free(args);
 	}
 	return (0);
 }

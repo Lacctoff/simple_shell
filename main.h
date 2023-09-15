@@ -15,6 +15,7 @@ extern char **environ;
 char *str_concat(char *s1, char *s2);
 int _strlen(char *s);
 int is_whitespace(char ch);
+int _strcmp(const char *str1, const char *str2);
 
 
 /* Function to execute a command with arguments*/

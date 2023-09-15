@@ -71,6 +71,27 @@ int main(int ac, char **av)
 		}
 		args[i] = NULL;
 
+		/*Implement the env built-in, that prints the current environment*/
+		if (_strcmp(args[0], "env") == 0)
+		{
+			char **env = environ;
+
+			while (*env != NULL)
+			{
+				write(1, *env, _strlen(*env));
+				write(1, "\n", 1);
+				env++;
+			}
+		}
+
+		/*checks exit command is equal to the arg and exits the program*/
+		if (_strcmp(args[0], "exit") == 0)
+		{
+			free(buff);
+			free(args);
+			exit(0);
+		}
+
 		/* Check if the command contains a '/' character */
 		if (strchr(args[0], '/') != NULL)
 		{

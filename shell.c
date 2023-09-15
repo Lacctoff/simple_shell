@@ -72,7 +72,7 @@ int main(int ac, char **av)
 		args[i] = NULL;
 
 		/* Check if the command contains a '/' character */
-		if (strchr(args[0], '/') != NULL)
+		if (_strchr(args[0], '/') != NULL)
 		{
 			/* This is an absolute path, execute it directly */
 			if (access(args[0], X_OK) == 0 && execute_command(args[0], args) == -1)

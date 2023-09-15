@@ -11,7 +11,7 @@
 char *search_command_in_path(char *command)
 {
 	char *path = custom_getenv("PATH");
-	char *path_copy = strdup(path);
+	char *path_copy = _strdup(path);
 	char *dir = strtok(path_copy, ":");
 	char *command_path = NULL;
 

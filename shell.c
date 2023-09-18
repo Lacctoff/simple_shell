@@ -119,7 +119,7 @@ int main(int ac, char **av)
 			else
 			{
 				write(STDERR_FILENO, command_name, _strlen(command_name));
-				perror("Command not found");
+				perror("");
 			}
 		}
 

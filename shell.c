@@ -1,10 +1,4 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
 
 int main(int ac, char **av);
 
@@ -128,5 +122,8 @@ int main(int ac, char **av)
 		i = 0;
 		free(args);
 	}
+
+	free(command_name);
+	free(buff);
 	return (0);
 }

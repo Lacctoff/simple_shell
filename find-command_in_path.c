@@ -8,7 +8,7 @@
  * Return: NULL if command not found and returns command_path if X_OK == 0.
  */
 
-char *search_command_in_path(char *command)
+void *search_command_in_path(char *command)
 {
 	char *path = custom_getenv("PATH");
 	char *path_copy = _strdup(path);

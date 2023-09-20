@@ -26,7 +26,7 @@ int _strncmp(const char *s1, const char *s2, size_t n);
 int execute_command(char *command, char **args);
 
 /* Function to search for the command in PATH*/
-char *search_command_in_path(char *command);
+void *search_command_in_path(char *command);
 char *_getenv(const char *name);
 char *custom_getenv(char *name);
 

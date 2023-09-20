@@ -39,6 +39,7 @@ int main(int ac, char **av)
 		write(1, "#cisfun$ ", 9);
 		if (getline(&buff, &buff_size, stdin) == -1)
 		{
+			free (command_name);
 			break;
 		}
 
@@ -87,6 +88,7 @@ int main(int ac, char **av)
 		/*checks exit command is equal to the arg and exits the program*/
 		if (_strcmp(args[0], "exit") == 0)
 		{
+			free(command_name);
 			free(buff);
 			free(args);
 			exit(0);

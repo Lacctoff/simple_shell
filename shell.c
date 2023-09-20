@@ -36,7 +36,7 @@ int main(int ac, char **av)
 
 	while (1)
 	{
-		write(1, "#cisfun$ ", 9);
+		/*write(1, "#cisfun$ ", 9);*/
 		if (getline(&buff, &buff_size, stdin) == -1)
 		{
 			free (command_name);

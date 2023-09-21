@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * add_node - adds a node to the start of the list
- * @head: address of pointer to head node
- * @str: str field of node
- * @num: node index used by history
+ * add_node - Adds a node to the beginning of the list.
+ * @head: address of pointer towards the head node.
+ * @str: str space of node
+ * @num: node value that serves as history
  *
  * Return: size of list
  */
@@ -34,10 +34,10 @@ list_t *add_node(list_t **head, const char *str, int num)
 }
 
 /**
- * add_node_end - adds a node to the end of the list
- * @head: address of pointer to head node
- * @str: str field of node
- * @num: node index used by history
+ * add_node_end - node is added to the end of the list
+ * @head: location of the reference to the head node
+ * @str: str space of node
+ * @num: the history's node index.
  *
  * Return: size of list
  */
@@ -75,10 +75,10 @@ list_t *add_node_end(list_t **head, const char *str, int num)
 }
 
 /**
- * print_list_str - prints only the str element of a list_t linked list
- * @h: pointer to first node
+ * print_list_str - Only the str element of list is printed
+ * @h: pointer to the first node
  *
- * Return: size of list
+ * Return: range of list
  */
 size_t print_list_str(const list_t *h)
 {
@@ -95,11 +95,11 @@ size_t print_list_str(const list_t *h)
 }
 
 /**
- * delete_node_at_index - deletes node at given index
- * @head: address of pointer to first node
- * @index: index of node to delete
+ * delete_node_at_index - Removes the node at specified index
+ * @head: Pointer to the address of the first node
+ * @index: The position of the node to be removed
  *
- * Return: 1 on success, 0 on failure
+ * Return: 1 for success, 0 for failure
  */
 int delete_node_at_index(list_t **head, unsigned int index)
 {
@@ -135,8 +135,8 @@ int delete_node_at_index(list_t **head, unsigned int index)
 }
 
 /**
- * free_list - frees all nodes of a list
- * @head_ptr: address of pointer to head node
+ * free_list - Frees all nodes within a list
+ * @head_ptr: Pointer to the address of the head node.
  *
  * Return: void
  */

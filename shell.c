@@ -19,6 +19,7 @@ int main(int ac, char **av)
 	char *command;
 	char **args;
 	char *command_path;
+	int exit_status = 0;
 
 	while (*av != NULL)
 	{
@@ -85,7 +86,7 @@ int main(int ac, char **av)
 			free(command_name);
 			free(buff);
 			free(args);
-			exit(0);
+			exit(exit_status);
 		}
 
 		/* Check if the command contains a '/' character */

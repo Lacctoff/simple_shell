@@ -41,21 +41,6 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- * starts_with -  Verifies if the 'needle' begins with the 'haystack'
- * @haystack: The string being searched.
- * @needle: The substring to locate at the beginning.
- *
- * Return: address of next char of haystack or NULL
- */
-char *starts_with(const char *haystack, const char *needle)
-{
-	while (*needle)
-		if (*needle++ != *haystack++)
-			return (NULL);
-	return ((char *)haystack);
-}
-
-/**
  * _strcat - Combines two strings together.
  * @dest: The buffer where the result is stored.
  * @src: The buffer providing the content to be added.

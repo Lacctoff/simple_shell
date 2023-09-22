@@ -1,39 +1,6 @@
 #include "shell.h"
 
 /**
- * add_node - Adds a node to the beginning of the list.
- * @head: address of pointer towards the head node.
- * @str: str space of node
- * @num: node value that serves as history
- *
- * Return: size of list
- */
-list_t *add_node(list_t **head, const char *str, int num)
-{
-	list_t *new_head;
-
-	if (!head)
-		return (NULL);
-	new_head = malloc(sizeof(list_t));
-	if (!new_head)
-		return (NULL);
-	_memset((void *)new_head, 0, sizeof(list_t));
-	new_head->num = num;
-	if (str)
-	{
-		new_head->str = _strdup(str);
-		if (!new_head->str)
-		{
-			free(new_head);
-			return (NULL);
-		}
-	}
-	new_head->next = *head;
-	*head = new_head;
-	return (new_head);
-}
-
-/**
  * add_node_end - node is added to the end of the list
  * @head: location of the reference to the head node
  * @str: str space of node
@@ -92,46 +59,6 @@ size_t print_list_str(const list_t *h)
 		i++;
 	}
 	return (i);
-}
-
-/**
- * delete_node_at_index - Removes the node at specified index
- * @head: Pointer to the address of the first node
- * @index: The position of the node to be removed
- *
- * Return: 1 for success, 0 for failure
- */
-int delete_node_at_index(list_t **head, unsigned int index)
-{
-	list_t *node, *prev_node;
-	unsigned int i = 0;
-
-	if (!head || !*head)
-		return (0);
-
-	if (!index)
-	{
-		node = *head;
-		*head = (*head)->next;
-		free(node->str);
-		free(node);
-		return (1);
-	}
-	node = *head;
-	while (node)
-	{
-		if (i == index)
-		{
-			prev_node->next = node->next;
-			free(node->str);
-			free(node);
-			return (1);
-		}
-		i++;
-		prev_node = node;
-		node = node->next;
-	}
-	return (0);
 }
 
 /**
